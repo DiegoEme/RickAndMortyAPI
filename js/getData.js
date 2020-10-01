@@ -13,7 +13,7 @@ const getData = (api) => {
   return fetch(api)
     .then((response) => response.json())
     .then((json) => {
-      llenarDatos(json);
+      llenarDatos(json), paginacion(json.info);
       console.log("json ->", json);
     })
     .catch((error) => {
@@ -26,7 +26,7 @@ const getData = (api) => {
 const llenarDatos = (datos) => {
   let html = "";
   datos.results.forEach((personaje) => {
-    html += '<div class="col-6 col-sm-6 col-md-4 col-lg-3">';
+    html += '<div class="col-12 col-sm-6 col-md-4 col-lg-3">';
     html += '<div class="card text-white bg-dark mb-5" style="width: 12rem;">';
     html += `<img src="${personaje.image}" class="card-img-top" alt="...">`;
     html += '<div class="card-body">';
@@ -39,6 +39,31 @@ const llenarDatos = (datos) => {
   });
 
   document.getElementById("datosPersonajes").innerHTML = html;
+};
+
+//paginacion
+
+const paginacion = (data) => {
+  let prevDisabled = "";
+  let nextDisabled = "";
+
+  if (data.prev == null) {
+    prevDisabled = "disabled";
+  } else {
+    prevDisabled = "";
+  }
+
+  if (data.next == null) {
+    nextDisabled = "disabled";
+  } else {
+    nextDisabled = "";
+  }
+
+  let html = "";
+  html += `<li class="page-item ${prevDisabled}"><a class="page-link" onclick = "getData('${data.prev}')">Previous</a></li>`;
+  html += `<li class="page-item ${nextDisabled}"><a class="page-link"  onclick = "getData('${data.next}')">Next</a></li>`;
+
+  document.getElementById("pagination").innerHTML = html;
 };
 
 getData(API);
