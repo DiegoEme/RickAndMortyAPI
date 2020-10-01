@@ -26,12 +26,13 @@ const getData = (api) => {
 const llenarDatos = (datos) => {
   let html = "";
   datos.results.forEach((personaje) => {
-    html += "<div class='col'>";
-    html += '<div class="card" style="width: 18rem;>';
-    html += `<img class="    card-img-top" src="${personaje.image}">`;
-    html += `<div class="card-body">`;
+    html += '<div class="col-6 col-sm-6 col-md-4 col-lg-3">';
+    html += '<div class="card text-white bg-dark mb-5" style="width: 12rem;">';
+    html += `<img src="${personaje.image}" class="card-img-top" alt="...">`;
+    html += '<div class="card-body">';
     html += `<h5 class="card-title">${personaje.name}</h5>`;
     html += `<p class="card-text">${personaje.status}</p>`;
+    html += `<p class="card-text">${personaje.species}</p>`;
     html += "</div>";
     html += "</div>";
     html += "</div>";
